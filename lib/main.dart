@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(myApp());
+}
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class myApp extends StatelessWidget {
+  const myApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData(primaryColor: Colors.white60),
+      home: HomeScreen(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff9eab8e),
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+        backgroundColor: Colors.white10,
+        title: const Text("Welcome to app"),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
-          'Hello, World!',
+          "This is your first page",
+          style: TextStyle(color: Colors.green),
         ),
       ),
     );
