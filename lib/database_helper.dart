@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseHelper {
   static late Database _database;
@@ -35,5 +36,28 @@ class DatabaseHelper {
   static Future<List<Map<String, dynamic>>> getUsers() async {
     final db = await database;
     return db.query(_tableName);
+  }
+
+  static loginUser(String email, String password) {
+    User user = await getUser(_email, _password);
+    if (user != null) {
+      Navigator.pushNamed(context, '/home');
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(content: Text('Invalid email or password')),
+      );
+    }
+  }
+
+  Future<User> getUser(String email, String password) async {
+    var dbClient = await database;
+    List<Map> result = await dbClient.query('users',
+        columns: ['id', 'email', 'password'],
+        where: 'email = ? AND password = ?',
+        whereArgs: [email, password]);
+    if (result.length > 0) {
+      return User.fromMap(result.first);
+    }
+    return null;
   }
 }
